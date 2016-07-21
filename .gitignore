@@ -1,0 +1,42 @@
+# build directories
+target
+classes
+build
+out
+gen
+javadoc
+
+# other
+20*.json
+20*.csv
+20*.ods
+
+# package files
+*~
+~*
+*.jar
+*.tar
+*.gz
+*.zip
+*.war
+*.ear
+*.bak
+
+# IDE related
+.settings
+.classpath
+.project
+*.iml
+nbactions.xml
+
+# misc
+.DS_Store
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+* copy
+* (copy)
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*

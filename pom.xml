@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.github.dittmarsteiner</groupId>
+    <artifactId>github-language-ranking</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    
+    <name>GitHub Language Ranking</name>
+    <description>
+        Creates a programming language ranking table (CSV) from an activity on githubarchive.
+    </description>
+    
+    <organization>
+        <name>Dittmar Steiner</name>
+        <url>http://dittmarsteiner.com</url>
+    </organization>
+    
+    <properties>
+        <java.version>1.8</java.version>
+        <mainClass>com.github.dittmarsteiner.training.githublanguageranking.Main</mainClass>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            
+            <!-- $ mvn javadoc:javadoc -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.4</version>
+                <configuration>
+                    <links>
+                        <link>https://docs.oracle.com/javase/8/docs/api/</link>
+                    </links>
+                    <show>protected</show>
+                    <additionalparam>-Xdoclint:none</additionalparam>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>generate-javadoc</id>
+                        <goals>
+                            <goal>javadoc</goal>
+                        </goals>
+                        <phase>site</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <!-- prepare jar in target/deploy-package -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/deploy-package</outputDirectory>
+                    <finalName>${project.artifactId}</finalName>
+                    <archive>
+                        <!-- META-INF/MANIFEST.MF: Main-Class and Class-Path -->
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>${mainClass}</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            
+            <!-- copy dependencies into target/deploy-package/lib -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.10</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/deploy-package/lib</outputDirectory>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                            <overWriteSnapshots>true</overWriteSnapshots>
+                            <!-- this flage ommits copying dependencies with scope "test": -->
+                            <includeScope>compile</includeScope>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <!-- assembly:assembly - a single file, no 'lib/' dir -->
+            <plugin>
+                <!-- details: https://maven.apache.org/plugins/maven-assembly-plugin/assembly-mojo.html -->
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.6</version>
+                
+                <configuration>
+                    <finalName>${project.artifactId}</finalName>
+                    <outputDirectory>${project.build.directory}/deploy-single</outputDirectory>
+                    <!-- otherwise the name would be 'github-language-ranking-jar-with-dependencies.jar': -->
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>${mainClass}</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+        
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
+    </build>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>[1.7,1.8)</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>[1.7,1.8)</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <!-- anything from 4.10 to lower than 4.11 -->
+            <version>[4.10,4.11)</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
