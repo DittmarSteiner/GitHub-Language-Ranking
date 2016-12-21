@@ -6,7 +6,7 @@ The story is to analyze the data of one hour of a day on GitHub and report an ev
 The motivation here is to try and sharpen your Java 8 programming skills—in contrast to just googling some ready-to-use libraries. Everything can be achieved by the Java 8 Standard Library in an elegant, modern and performant way.
 
 The benefit will appear when you present your approach to your colleagues.  
-_Important: you do not even have to finish the whole project—we are all happy to discuss with you **one task after the other!_**
+_Important: you do not even have to finish the whole project—we are all happy to discuss with you **one task after the other!**_
 
 **Spoiler Alert:** if you really want to cheat on yourself, try the branch `dittmar/develop` :-(
 

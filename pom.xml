@@ -98,26 +98,31 @@
                 </executions>
             </plugin>
             
-            <!-- assembly:assembly - a single file, no 'lib/' dir -->
+            <!-- https://maven.apache.org/plugins/maven-shade-plugin/ -->
             <plugin>
-                <!-- details: https://maven.apache.org/plugins/maven-assembly-plugin/assembly-mojo.html -->
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.6</version>
-                
-                <configuration>
-                    <finalName>${project.artifactId}</finalName>
-                    <outputDirectory>${project.build.directory}/deploy-single</outputDirectory>
-                    <!-- otherwise the name would be 'github-language-ranking-jar-with-dependencies.jar': -->
-                    <appendAssemblyId>false</appendAssemblyId>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <archive>
-                        <manifest>
-                            <mainClass>${mainClass}</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.4.3</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>${project.artifactId}</finalName>
+                            <outputDirectory>${project.build.directory}/deploy-shade</outputDirectory>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <manifestEntries>
+                                        <Main-Class>${mainClass}</Main-Class>
+                                        <Build-Number>${project.version}</Build-Number>
+                                    </manifestEntries>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
         
