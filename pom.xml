@@ -18,7 +18,7 @@
     
     <properties>
         <java.version>1.8</java.version>
-        <mainClass>com.github.dittmarsteiner.training.githublanguageranking.Main</mainClass>
+        <mainClass>com.github.dittmarsteiner.training.githublanguageranking.LanguageRanking</mainClass>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     
@@ -142,6 +142,18 @@
     </build>
     
     <dependencies>
+        <dependency>
+            <groupId>com.github.kevinsawicki</groupId>
+            <artifactId>http-request</artifactId>
+            <!-- anything from 6 to lower than 7 -->
+            <version>[6,7)</version>
+        </dependency>
+        <!-- many small: http://blog.takipi.com/the-ultimate-json-library-json-simple-vs-gson-vs-jackson-vs-json/ -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.7</version>
+        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
