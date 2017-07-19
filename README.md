@@ -10,10 +10,10 @@ _Important: you do not even have to finish the whole project—we are all happy 
 
 **Spoiler Alert:** if you really want to cheat on yourself, try the branch `dittmar/develop` :-(
 
-##What we will learn
+## What we will learn
 Java, Analysis, Modelling, I/O, Unit Testing, Java 8
 
-##The tasks of your program
+## The tasks of your program
 
 0. Retrieve the data from [http://data.githubarchive.org/2016-03-14-15.json.gz](http://data.githubarchive.org/2016-03-14-15.json.gz)
 0. Analyze the data which is *“count the activities for each programming language”*
@@ -38,14 +38,14 @@ As a highlight you may add another column “PROPORTION” with the two-digit pe
 | 1    | JavaScript            | 767        | 23.45 %    |
 | …    | …                     | …          | …          |
 
-####Hint
+#### Hint
 *There might be different results but only one is correct ;-)*
 
-##About Solutions
+## About Solutions
 For the download you may use a library of your choice or just a plain [HttpURLConnection](https://docs.oracle.com/javase/8/docs/api/java/net/HttpURLConnection.html), if you like.  
 But all other tasks fit perfectly in the Java 8 environment without any external libraries.
 
-##Git
+## Git
 Branch early: create your own branch like  
 `$ git checkout -b <your-name>/develop`  
 Please, **do not push*** your solution—only to a private repository. Everyone should start plain from the beginning without any suggestion or template.
