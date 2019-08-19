@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.dittmarsteiner</groupId>
     <artifactId>github-language-ranking</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>GitHub Language Ranking</name>
@@ -17,33 +17,45 @@
     </organization>
 
     <properties>
-        <java.version>1.8</java.version>
-        <mainClass>com.github.dittmarsteiner.training.githublanguageranking.Main</mainClass>
+        <java.version>11</java.version>
+        <mainClass>com.github.dittmarsteiner.training.githublanguageranking.LanguageRanking</mainClass>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <build>
         <plugins>
+        	<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
+                <version>3.8.1</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
 
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
+
             <!-- $ mvn javadoc:javadoc -->
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.4</version>
+                <version>3.0.1</version>
                 <configuration>
                     <links>
-                        <link>https://docs.oracle.com/javase/8/docs/api/</link>
+                        <link>https://docs.oracle.com/en/java/javase/11/docs/api/index.html</link>
                     </links>
-                    <show>protected</show>
-                    <additionalparam>-Xdoclint:none</additionalparam>
+                    <show>public</show>
+                    <additionalOptions>
+                        <additionalOption>-Xdoclint:none</additionalOption>
+                    </additionalOptions>
+                    <!-- https://maven.apache.org/plugins/maven-javadoc-plugin/examples/exclude-package-names.html -->
+                    <!-- <excludePackageNames>de.aptly.internal</excludePackageNames> -->
                 </configuration>
                 <executions>
                     <execution>
@@ -56,11 +68,12 @@
                 </executions>
             </plugin>
 
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
             <!-- prepare jar in target/deploy-package -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.6</version>
+                <version>3.1.2</version>
                 <configuration>
                     <outputDirectory>${project.build.directory}/deploy-package</outputDirectory>
                     <finalName>${project.artifactId}</finalName>
@@ -98,11 +111,12 @@
                 </executions>
             </plugin>
 
-            <!-- https://maven.apache.org/plugins/maven-shade-plugin/ -->
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-shade-plugin -->
+            <!-- copies single-jar to target/deploy-shade/lib -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>2.4.3</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -146,15 +160,14 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>1.7.25</version>
-            <scope>test</scope>
+            <version>1.7.26</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.4.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
